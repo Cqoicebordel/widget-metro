@@ -21,7 +21,19 @@ function getMetroSuivant($line, $stationID, $sens){
     preg_match_all('/class="schmsg1"><b>(.*)<\/b><\/div><div class="bg3">/', $html, $premier);
     preg_match('/class="schmsg3"><b>(.*)<\/b><\/div><div class="bg1">.*\n.*class="schmsg1"><b>/', $html, $deuxieme);
     preg_match('/class="schmsg3"><b>(.*)<\/b><\/div><div class="seppage">/', $html, $quatrieme);
-    $prochains = [$premier[1][0], $deuxieme[1], $premier[1][1], $quatrieme[1]];
+    $prochains = [];
+    if(isset($premier[1][0])){
+        $prochains[0] = $premier[1][0];
+    }
+    if(isset($deuxieme[1])){
+        $prochains[1] = $deuxieme[1];
+    }
+    if(isset($premier[1][1])){
+        $prochains[2] = $premier[1][1];
+    }
+    if(isset($quatrieme[1])){
+        $prochains[3] = $quatrieme[1];
+    }
     return $prochains;
 }
 
@@ -43,9 +55,27 @@ function getBusSuivant($line, $stationID){
     curl_close($curl);
 
     preg_match_all('/Direction&nbsp;<b class="bwhite">(.*)<\/b>/', $html, $directions);
-    preg_match_all('/class="schmsg1"><b>(.*?)<\/b>/', $html, $premiers);
-    preg_match_all('/class="schmsg3"><b>(.*?)<\/b>/', $html, $deuxiemes);
-    $prochains = [[$directions[1][0], $premiers[1][0], $deuxiemes[1][0]],[$directions[1][1], $premiers[1][1], $deuxiemes[1][1]]];
+    preg_match_all('/class="schmsg1"><b>(.*)<\/b>/', $html, $premiers);
+    preg_match_all('/class="schmsg3"><b>(.*)<\/b><\/div>/U', $html, $deuxiemes);
+    $prochains = [[]];
+    if(isset($directions[1][0])){
+        $prochains[0][0] = $directions[1][0];
+    }
+    if(isset($premiers[1][0])){
+        $prochains[0][1] = $premiers[1][0];
+    }
+    if(isset($deuxiemes[1][0])){
+        $prochains[0][2] = $deuxiemes[1][0];
+    }
+    if(isset($directions[1][1])){
+        $prochains[1][0] = $directions[1][1];
+    }
+    if(isset($premiers[1][1])){
+        $prochains[1][1] = $premiers[1][1];
+    }
+    if(isset($deuxiemes[1][1])){
+        $prochains[1][2] = $deuxiemes[1][1];
+    }
     return $prochains;
 }
 
@@ -69,7 +99,25 @@ function getNoctilienSuivant($line, $stationID){
     preg_match_all('/Direction&nbsp;<b class="bwhite">(.*?)<\/b>/', $html, $directions);
     preg_match_all('/class="bg1"><b>(.*?)<\/b>/', $html, $premiers);
     preg_match_all('/class="bg3"><b>(.*?)<\/b>/', $html, $deuxiemes);
-    $prochains = [[$directions[1][0], $premiers[1][0], $deuxiemes[1][0]],[$directions[1][1], $premiers[1][1], $deuxiemes[1][1]]];
+    $prochains = [[]];
+    if(isset($directions[1][0])){
+        $prochains[0][0] = $directions[1][0];
+    }
+    if(isset($premiers[1][0])){
+        $prochains[0][1] = $premiers[1][0];
+    }
+    if(isset($deuxiemes[1][0])){
+        $prochains[0][2] = $deuxiemes[1][0];
+    }
+    if(isset($directions[1][1])){
+        $prochains[1][0] = $directions[1][1];
+    }
+    if(isset($premiers[1][1])){
+        $prochains[1][1] = $premiers[1][1];
+    }
+    if(isset($deuxiemes[1][1])){
+        $prochains[1][2] = $deuxiemes[1][1];
+    }
     return $prochains;
 }
 
@@ -92,7 +140,13 @@ function getTramwaySuivant($line, $stationID, $sens){
 
     preg_match_all('/class="schmsg1"><b>(.*)<\/b><\/div><div class="bg3">/', $html, $premier);
     preg_match('/class="schmsg3"><b>(.*?)<\/b>/', $html, $deuxieme);
-    $prochains = [$premier[1][0], $deuxieme[1]];
+    $prochains = [];
+    if(isset($premier[1][0])){
+        $prochains[0] = $premier[1][0];
+    }
+    if(isset($deuxieme[1])){
+        $prochains[1] = $deuxieme[1];
+    }
     return $prochains;
 }
 
@@ -115,7 +169,25 @@ function getRERSuivant($line, $stationID, $sens){
 
     preg_match_all('/class="schmsg1"><b>(.*)<\/b><\/div><div class="bg3">/', $html, $premier);
     preg_match_all('/class="schmsg3"><b>(.*?)<\/b>/', $html, $deuxieme);
-    $prochains = [$premier[1][0], $deuxieme[1][0], $premier[1][1], $deuxieme[1][1], $premier[1][2], $deuxieme[1][2]];
+    $prochains = [];
+    if(isset($premier[1][0])){
+        $prochains[0] = $premier[1][0];
+    }
+    if(isset($deuxieme[1][0])){
+        $prochains[1] = $deuxieme[1][0];
+    }
+    if(isset($premier[1][1])){
+        $prochains[2] = $premier[1][1];
+    }
+    if(isset($deuxieme[1][1])){
+        $prochains[3] = $deuxieme[1][1];
+    }
+    if(isset($premier[1][2])){
+        $prochains[4] = $premier[1][2];
+    }
+    if(isset($deuxieme[1][2])){
+        $prochains[5] = $deuxieme[1][2];
+    }
     return $prochains;
 }
 
